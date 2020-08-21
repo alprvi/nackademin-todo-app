@@ -1,8 +1,8 @@
 module.exports = {
-  createTodoItem: function (title) {
+  createTodoItem: function (title, status) {
     return new Promise(async (resolve, reject) => {
       try {
-        const item = await db.todoItems.insert({ title });
+        const item = await db.todoItems.insert({ title, status });
         resolve(item);
       } catch (error) {
         reject(error);
@@ -21,10 +21,14 @@ module.exports = {
     });
   },
 
-  updateTodoItem: function (id, title) {
+  updateTodoItem: function (id, title, status) {
     return new Promise(async (resolve, reject) => {
       try {
-        const item = await db.todoItems.update({ _id: id }, { title }, {});
+        const item = await db.todoItems.update(
+          { _id: id },
+          { title, status },
+          {}
+        );
         resolve(item);
       } catch (error) {
         reject(error);
