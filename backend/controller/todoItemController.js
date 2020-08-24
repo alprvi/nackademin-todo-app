@@ -1,9 +1,9 @@
 const todoItemModel = require("../models/todoItemModel");
 
 exports.createTodoItem = async (req, res) => {
-  const { title, status } = req.body;
+  const { title, completed } = req.body;
   try {
-    const item = await todoItemModel.createTodoItem(title, status);
+    const item = await todoItemModel.createTodoItem(title, completed);
     res.json(item);
   } catch (error) {
     res.json({ error: error.message });
@@ -22,9 +22,9 @@ exports.deleteTodoItem = async (req, res) => {
 
 exports.updateTodoItem = async (req, res) => {
   const itemId = req.params.id;
-  const { title, status } = req.body;
+  const { title, completed } = req.body;
   try {
-    const item = await todoItemModel.updateTodoItem(itemId, title, status);
+    const item = await todoItemModel.updateTodoItem(itemId, title, completed);
     res.json({ message: "Number of updated items: " + item });
   } catch (error) {
     res.json({ error: error.message });
