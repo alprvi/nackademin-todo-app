@@ -1,7 +1,7 @@
 import express from "express";
 
-import { userController } from "./users.controller";
-import { authorization, admin } from "../../middlewares";
+import { userController } from "../controllers/users.controller";
+import { authorization, admin } from "../middlewares";
 export const userRouter = express.Router();
 
 userRouter.route("/").get(userController.getUsers);

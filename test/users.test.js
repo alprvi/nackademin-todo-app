@@ -11,6 +11,7 @@ describe("USER MODEL", function () {
       const user = {
         email: "test_email@email.com",
         password: "test_password",
+        username: "test_username",
       };
       // Act
       const result = await userModel.createUser(user);
@@ -32,14 +33,17 @@ describe("USER MODEL", function () {
       const user1 = {
         email: "test_email1@email.com",
         password: "test_password",
+        username: "test_username",
       };
       const user2 = {
         email: "test_email2@email.com",
         password: "test_password",
+        username: "test_username",
       };
       const user3 = {
         email: "test_email3@email.com",
         password: "test_password",
+        username: "test_username",
       };
 
       // Act

@@ -1,10 +1,12 @@
 import express from "express";
 export const router = express.Router();
 
-import { taskRouter } from "./resources/tasks/";
-import { tasksListRouter } from "./resources/tasksLists/";
-import { userRouter, userController } from "./resources/users/";
-import { authorization } from "./middlewares";
+import { taskRouter } from "./tasks.router";
+import { tasksListRouter } from "./tasksLists.router";
+import { userRouter } from "./users.router";
+
+import { authorization } from "../middlewares";
+import { userController } from "./../controllers/users.controller";
 
 router.get("/", (req, res) => {
   res.send("Home page");

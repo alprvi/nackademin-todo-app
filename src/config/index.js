@@ -1,7 +1,6 @@
 import merge from "lodash.merge";
 import devConfig from "./dev";
 import testConfig from "./test";
-// import prodConfig from "./prod";
 
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 const env = process.env.NODE_ENV;
@@ -17,9 +16,6 @@ switch (env) {
   case "dev":
     envConfig = devConfig;
     break;
-  case "production":
-  case "prod":
-  // envConfig = prodConfig;
   case "test":
     envConfig = testConfig;
     break;

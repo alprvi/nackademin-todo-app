@@ -14,19 +14,23 @@ describe("TASK LIST INTEGRATION", function () {
       const user = await userModel.createUser({
         email: "test_user@email.com",
         password: "test_password",
+        username: "test_username",
       });
       const userAdmin = await userModel.createUser({
         email: "test_user_admin@email.com",
         password: "test_password",
+        username: "test_username",
         isAdmin: true,
       });
       const signedInUser = await userModel.login(
         "test_user@email.com",
-        "test_password"
+        "test_password",
+        "test_username"
       );
       const signedInUserAdmin = await userModel.login(
         "test_user_admin@email.com",
-        "test_password"
+        "test_password",
+        "test_username"
       );
       this.currentTest.userToken = signedInUser.token;
       this.currentTest.userAdminToken = signedInUserAdmin.adminToken;

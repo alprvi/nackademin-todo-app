@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import Joi from "joi";
 import jwt from "jsonwebtoken";
 
-import config from "../../config";
+import config from "../config";
 
 // Create the schema
 const schema = {

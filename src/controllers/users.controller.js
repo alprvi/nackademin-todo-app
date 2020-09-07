@@ -1,8 +1,8 @@
 import pick from "lodash.pick";
 import bcrypt from "bcryptjs";
 
-import { User, userModel, validateUser } from "./users.model";
-import { taskModel } from "../tasks/tasks.model";
+import { User, userModel, validateUser } from "../models/users.model";
+import { taskModel } from "../models/tasks.model";
 
 export const userController = {
   async login(req, res) {

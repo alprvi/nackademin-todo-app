@@ -1,7 +1,7 @@
 import express from "express";
 
-import { tasksListController } from "./tasksLists.controller";
-import { authorization, admin } from "../../middlewares";
+import { tasksListController } from "../controllers/tasksLists.controller";
+import { authorization, admin } from "../middlewares";
 // import { catchErrors } from "../../middlewares"; // Remove try and catch blocks in tasks.router and use middleware instead
 export const tasksListRouter = express.Router();
 

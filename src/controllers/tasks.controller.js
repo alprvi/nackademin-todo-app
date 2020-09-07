@@ -1,5 +1,5 @@
-import { taskModel, validateTask } from "./tasks.model";
-import { tasksListModel } from "./../tasksLists/tasksLists.model";
+import { taskModel, validateTask } from "../models/tasks.model";
+import { tasksListModel } from "../models/tasksLists.model";
 
 export const taskController = {
   async createTask(req, res) {
