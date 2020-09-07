@@ -1,6 +1,6 @@
 import chai from "chai";
 
-import { tasksListModel } from "./../src/resources/tasksLists/tasksLists.model";
+import { tasksListModel } from "../src/models/tasksLists.model";
 
 chai.should();
 

@@ -1,8 +1,8 @@
 import chai, { expect } from "chai";
 import chaiHttp from "chai-http";
 
-import { tasksListModel } from "./../src/resources/tasksLists/tasksLists.model";
-import { userModel } from "./../src/resources/users/users.model";
+import { tasksListModel } from "../src/models/tasksLists.model";
+import { userModel } from "../src/models/users.model";
 import app from "./../src/app";
 
 chai.should();

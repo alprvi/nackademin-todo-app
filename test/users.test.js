@@ -1,6 +1,6 @@
 import chai from "chai";
 
-import { userModel } from "./../src/resources/users/users.model";
+import { userModel } from "../src/models/users.model";
 
 chai.should();
 

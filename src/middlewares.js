@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import config from "./config";
+import { taskModel } from "./models/tasks.model";
 
 // validate x-access-token
 export const authorization = (req, res, next) => {

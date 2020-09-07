@@ -24,6 +24,14 @@ export const taskController = {
     res.status(201).send(taskCreated);
   },
 
+  // Retrieve only the tasks from the creator of the tasks NOT DONE
+  async owner(req, res) {
+    // check req.user.id
+    const user = req.user._id;
+    // check req.params.id
+    const author = await taskModel.getTask(req.params.id);
+  },
+
   async getTasks(req, res) {
     const tasks = await taskModel.getTasks({});
     if (!tasks) return res.sendStatus(404);

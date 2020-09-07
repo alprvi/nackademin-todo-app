@@ -22,9 +22,4 @@ app.use("/", router);
 app.use(notFound);
 app.use(logErrors);
 
-// const port = config.port;
-// app.listen(port, () => {
-//   console.log(`Server started on localhost:${port}`);
-// });
-
 export default app;

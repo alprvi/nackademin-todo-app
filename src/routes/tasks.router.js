@@ -8,11 +8,11 @@ export const taskRouter = express.Router();
 taskRouter
   .route("/")
   // .get(catchErrors(taskController.gettasks))
-  .get(taskController.getTasks)
+  .get(authorization, taskController.getTasks)
   .post(authorization, taskController.createTask);
 
 taskRouter
   .route("/:id")
-  .get(taskController.getTask)
+  .get(authorization, taskController.getTask)
   .put(authorization, taskController.updateTask)
-  .delete(authorization, taskController.deleteTask);
+  .delete(authorization, admin, taskController.deleteTask);
