@@ -2,17 +2,9 @@ import mongoose from "mongoose";
 import appConfig from "./../src/config";
 
 const config = appConfig;
-const environment = Object.values(appConfig)[4];
 
 // Connect to test database before we run the test
 before(function (done) {
-  this.timeout(10000);
-  if (environment !== "test") {
-    console.error(
-      " //////// Please change to testing environment before running tests ////////"
-    );
-    return;
-  }
   mongoose.connect(config.database, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
