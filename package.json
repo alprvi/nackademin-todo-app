@@ -5,7 +5,7 @@
   "main": "index.js",
   "module": "app.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=dev nodemon -r dotenv/config index",
+    "start": "cross-env NODE_ENV=dev node -r dotenv/config index",
     "test": "cross-env NODE_ENV=test mocha -r dotenv/config --require esm"
   },
   "private": true,
