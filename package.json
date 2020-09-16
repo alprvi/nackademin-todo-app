@@ -8,6 +8,11 @@
     "start": "cross-env NODE_ENV=dev nodemon -r dotenv/config index",
     "test": "cross-env NODE_ENV=test mocha -r dotenv/config --require esm"
   },
+  "config": {
+    "mongodbMemoryServer": {
+      "version": "latest"
+    }
+  },
   "private": true,
   "author": "Alexandre Previ",
   "license": "ISC",
