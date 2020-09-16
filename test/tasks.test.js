@@ -44,11 +44,11 @@ describe("TASK MODEL", function () {
       // Assert
     });
   });
-  describe("DELETE /tasks/:id", function () {
-    it("should delete a task", function () {
-      // Arrange
-      // Act
-      // Assert
-    });
-  });
+  // describe("DELETE /tasks/:id", function () {
+  //   it("should delete a task", function () {
+  //     // Arrange
+  //     // Act
+  //     // Assert
+  //   });
+  // });
 });
