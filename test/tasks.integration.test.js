@@ -39,7 +39,10 @@ describe("TASK INTEGRATION", function () {
     });
 
     it("should create a task", function () {
-      const fields = { title: "task_test", tasksList: "tasksList_test" };
+      const fields = {
+        title: "task_test",
+        tasksList: "5f5209f41513fa3e50510fb8",
+      };
       chai
         .request(app)
         .post("/tasks")

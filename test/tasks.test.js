@@ -11,7 +11,7 @@ describe("TASK MODEL", function () {
       const task = {
         title: "test_task",
         author: "test_author",
-        tasksList: "test_tasksList",
+        tasksList: "test_tasksListId_09823409823409234098234",
       };
 
       // Act
