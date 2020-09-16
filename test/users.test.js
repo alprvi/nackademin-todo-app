@@ -57,13 +57,6 @@ describe("USER MODEL", function () {
     });
   });
 
-  describe("GET /users", function () {
-    it("should return all the users", function () {
-      // Arrange
-      // Act
-      // Assert
-    });
-  });
   describe("GET /users/:id", function () {
     it("should return a user by id", function () {
       // Arrange

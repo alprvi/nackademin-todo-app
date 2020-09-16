@@ -30,13 +30,6 @@ describe("TASK MODEL", function () {
     });
   });
 
-  describe("GET /tasks", function () {
-    it("should return all the tasks", function () {
-      // Arrange
-      // Act
-      // Assert
-    });
-  });
   describe("GET /tasks/:id", function () {
     it("should return a task by id", function () {
       // Arrange

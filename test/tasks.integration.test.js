@@ -1,15 +1,15 @@
 import chai, { expect } from "chai";
 import chaiHttp from "chai-http";
 
-import { tasksListModel } from "../src/models/tasksLists.model";
+import { taskModel } from "../src/models/tasks.model";
 import { userModel } from "../src/models/users.model";
-import app from "./../src/app";
+import app from "../src/app";
 
 chai.should();
 chai.use(chaiHttp);
 
-describe("TASK LIST INTEGRATION", function () {
-  describe("POST /tasklist", function () {
+describe("TASK INTEGRATION", function () {
+  describe("POST /tasks", function () {
     beforeEach(async function () {
       const user = await userModel.createUser({
         email: "test_user@email.com",
@@ -37,11 +37,12 @@ describe("TASK LIST INTEGRATION", function () {
       this.currentTest.userId = user._id.toString();
       this.currentTest.userAdminId = userAdmin._id.toString();
     });
-    it("should create a task list", function () {
-      const fields = { title: "test_tasklist" };
+
+    it("should create a task", function () {
+      const fields = { title: "task_test", tasksList: "tasksList_test" };
       chai
         .request(app)
-        .post("/taskslists")
+        .post("/tasks")
         .set("x-access-token", this.test.userToken)
         .set("Content-type", "application/json")
         .send(fields)
@@ -49,8 +50,21 @@ describe("TASK LIST INTEGRATION", function () {
           expect(err).to.be.null;
           res.should.have.status(201);
           res.should.be.json;
-          res.body.should.have.keys(["_id", "title", "author", "tasks"]);
+          res.body.should.have.keys([
+            "_id",
+            "author",
+            "title",
+            "tasksList",
+            "isDone",
+            "isUrgent",
+          ]);
         });
     });
+
+    it("should edit a task", function () {});
+
+    it("should delete a task", function () {});
+
+    it("should not delete a task and throw an error", function () {});
   });
 });

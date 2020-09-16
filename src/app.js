@@ -8,6 +8,8 @@ import config from "./config";
 import { router } from "./routes/router";
 import { notFound, logErrors } from "./middlewares";
 
+console.log(config);
+
 if (config.environment !== "test") {
   databaseConnect();
 }
