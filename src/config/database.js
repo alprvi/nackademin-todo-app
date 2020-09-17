@@ -2,39 +2,30 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
-let config = "";
-
-const testConfig = {
-  port: process.env.PORT || 4000,
-  database: process.env.TEST_DATABASE,
-  secrets: { JWT_SECRET: process.env.JWT_SECRET },
-  environment: "test",
-};
-
-const devConfig = {
-  port: process.env.PORT || 4000,
-  database: process.env.DATABASE,
-  secrets: { JWT_SECRET: process.env.JWT_SECRET },
-  environment: "dev" || "devlopment",
-};
+let mongoDB;
 
 switch (process.env.NODE_ENV) {
   case "development":
   case "dev":
-    config = devConfig;
+  case "staging":
+    mongoDB = {
+      getUri: async () =>
+        `mongodb+srv://${process.env.DBUSER}:${process.env.DBPASSWORD}@${process.env.DBCLUSTER}/${process.env.DBNAME}?retryWrites=truew=majority`,
+    };
+    console.log("staging");
     break;
   case "test":
-    config = testConfig;
+    const { MongoMemoryServer } = require("mongodb-memory-server");
+    mongoDB = new MongoMemoryServer();
     break;
   default:
-    config = devConfig;
+    throw new Error(`${process.env.NODE_ENV} is not a valid environment`);
 }
 
-console.log(config);
-
 const dbConnect = async () => {
+  const uri = await mongoDB.getUri();
   try {
-    await mongoose.connect(config.database, {
+    await mongoose.connect(uri, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
       useCreateIndex: true,
@@ -50,6 +41,10 @@ const dbDisconnect = async () => {
     await mongoose.connection.close(() => {
       console.log("Disconnected from MongoDB");
     });
+
+    if (process.env.NODE_ENV === "test") {
+      await mongoDB.stop();
+    }
   } catch (error) {
     console.log(error);
   }
