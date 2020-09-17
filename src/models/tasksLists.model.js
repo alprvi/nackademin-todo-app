@@ -50,6 +50,16 @@ const tasksListModel = {
       return false;
     }
   },
+
+  async getTasksListUser(filter) {
+    try {
+      return TasksList.find(filter);
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  },
+
   async createTasksList(tasksList) {
     try {
       return await TasksList.create(tasksList);

@@ -25,6 +25,12 @@ const tasksListController = {
     res.status(200).send(tasksLists);
   },
 
+  async getTasksListUser(req, res) {
+    const tasksListUser = await tasksListModel.getTasksList({});
+    if (!tasksListUser) return res.sendStatus(404);
+    res.status(200).send(tasksListUser);
+  },
+
   async getTasksList(req, res) {
     const tasksList = await tasksListModel.getTasksList(req.params.id);
     if (!tasksList) return res.status(404).send("tasksList not found");
