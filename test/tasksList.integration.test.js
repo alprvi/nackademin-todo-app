@@ -1,34 +1,48 @@
-import chai, { expect } from "chai";
-import chaiHttp from "chai-http";
-
-import { tasksListModel } from "../src/models/tasksLists.model";
-import { userModel } from "../src/models/users.model";
-import app from "../src/app";
-import { request } from "express";
+require("dotenv").config();
+const chai = require("chai");
+const chaiHttp = require("chai-http");
+const { dbDisconnect, dbConnect } = require("../src/config/database");
+const tasksModel = require("../src/models/tasks.model");
+const tasksListsModel = require("../src/models/tasksLists.model");
+const userModel = require("../src/models/users.model");
+const app = require("../app");
 
 chai.should();
 chai.use(chaiHttp);
 
 describe("TASK LIST INTEGRATION", function () {
+  before(async function () {
+    await dbConnect();
+  });
+
+  beforeEach(async function () {
+    await tasksModel.Task.deleteMany();
+    await tasksListsModel.TasksList.deleteMany();
+    await userModel.User.deleteMany();
+  });
+
+  after(async function () {
+    await dbDisconnect();
+  });
   describe("POST /tasklist", function () {
     beforeEach(async function () {
-      const user = await userModel.createUser({
+      const user = await userModel.userModel.createUser({
         email: "test_user@email.com",
         password: "test_password",
         username: "test_username",
       });
-      const userAdmin = await userModel.createUser({
+      const userAdmin = await userModel.userModel.createUser({
         email: "test_user_admin@email.com",
         password: "test_password",
         username: "test_username",
         isAdmin: true,
       });
-      const signedInUser = await userModel.login(
+      const signedInUser = await userModel.userModel.login(
         "test_user@email.com",
         "test_password",
         "test_username"
       );
-      const signedInUserAdmin = await userModel.login(
+      const signedInUserAdmin = await userModel.userModel.login(
         "test_user_admin@email.com",
         "test_password",
         "test_username"
@@ -48,7 +62,7 @@ describe("TASK LIST INTEGRATION", function () {
         .set("Content-type", "application/json")
         .send(fields)
         .end((err, res) => {
-          expect(err).to.be.null;
+          chai.expect(err).to.be.null;
           res.should.have.status(201);
           res.should.be.json;
           res.body.should.have.keys(["_id", "title", "author", "tasks"]);
@@ -63,30 +77,30 @@ describe("TASK LIST INTEGRATION", function () {
         .set("Content-type", "application/json")
         .send(fields)
         .end((err, res) => {
-          expect(res.statusCode).to.equal(401);
-          expect(res.text).to.equal("You must sign in first");
+          chai.expect(res.statusCode).to.equal(401);
+          chai.expect(res.text).to.equal("You must sign in first");
         });
     });
   });
   describe("PUT /tasklist", function () {
     beforeEach(async function () {
-      const user = await userModel.createUser({
+      const user = await userModel.userModel.createUser({
         email: "test_user@email.com",
         password: "test_password",
         username: "test_username",
       });
-      const userAdmin = await userModel.createUser({
+      const userAdmin = await userModel.userModel.createUser({
         email: "test_user_admin@email.com",
         password: "test_password",
         username: "test_username",
         isAdmin: true,
       });
-      const signedInUser = await userModel.login(
+      const signedInUser = await userModel.userModel.login(
         "test_user@email.com",
         "test_password",
         "test_username"
       );
-      const signedInUserAdmin = await userModel.login(
+      const signedInUserAdmin = await userModel.userModel.login(
         "test_user_admin@email.com",
         "test_password",
         "test_username"

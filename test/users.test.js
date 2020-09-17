@@ -1,10 +1,27 @@
-import chai from "chai";
-
-import { userModel } from "../src/models/users.model";
+require("dotenv").config();
+const chai = require("chai");
+const { dbDisconnect, dbConnect } = require("../src/config/database");
+const tasksModel = require("../src/models/tasks.model");
+const tasksListsModel = require("../src/models/tasksLists.model");
+const userModel = require("../src/models/users.model");
 
 chai.should();
 
 describe("USER MODEL", function () {
+  before(async function () {
+    await dbConnect();
+  });
+
+  beforeEach(async function () {
+    await tasksModel.Task.deleteMany();
+    await tasksListsModel.TasksList.deleteMany();
+    await userModel.User.deleteMany();
+  });
+
+  after(async function () {
+    await dbDisconnect();
+  });
+
   describe("POST /users", function () {
     it("should create a user", async function () {
       // Arrange
@@ -14,7 +31,7 @@ describe("USER MODEL", function () {
         username: "test_username",
       };
       // Act
-      const result = await userModel.createUser(user);
+      const result = await userModel.userModel.createUser(user);
       // Assert
       result.should.be.an("object");
       result.should.have.property("_id");
@@ -47,10 +64,10 @@ describe("USER MODEL", function () {
       };
 
       // Act
-      await userModel.createUser(user1);
-      await userModel.createUser(user2);
-      await userModel.createUser(user3);
-      const result = await userModel.count();
+      await userModel.userModel.createUser(user1);
+      await userModel.userModel.createUser(user2);
+      await userModel.userModel.createUser(user3);
+      const result = await userModel.userModel.count();
 
       // Assert
       result.should.be.a("number").eq(3);

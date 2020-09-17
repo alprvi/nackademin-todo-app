@@ -1,10 +1,27 @@
-import chai from "chai";
+require("dotenv").config();
+const chai = require("chai");
 
-import { tasksListModel } from "../src/models/tasksLists.model";
+const { dbDisconnect, dbConnect } = require("../src/config/database");
+const tasksModel = require("../src/models/tasks.model");
+const tasksListsModel = require("../src/models/tasksLists.model");
+const userModel = require("../src/models/users.model");
 
 chai.should();
 
 describe("TASK LIST MODEL", function () {
+  before(async function () {
+    await dbConnect();
+  });
+
+  beforeEach(async function () {
+    await tasksModel.Task.deleteMany();
+    await tasksListsModel.TasksList.deleteMany();
+    await userModel.User.deleteMany();
+  });
+
+  after(async function () {
+    await dbDisconnect();
+  });
   describe("POST /taskslist", function () {
     it("should create a tasks list", async function () {
       // Arrange
@@ -13,7 +30,9 @@ describe("TASK LIST MODEL", function () {
         author: "test_author",
       };
       // Act
-      const result = await tasksListModel.createTasksList(taskList);
+      const result = await tasksListsModel.tasksListModel.createTasksList(
+        taskList
+      );
       // Assert
       result.should.be.an("object");
       result.should.have.property("_id");

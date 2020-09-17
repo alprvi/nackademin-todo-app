@@ -1,8 +1,8 @@
-import express from "express";
+const express = require("express");
 
-import { userController } from "../controllers/users.controller";
-import { authorization, admin } from "../middlewares";
-export const userRouter = express.Router();
+const userController = require("../controllers/users.controller");
+const { authorization, admin } = require("../middlewares");
+const userRouter = express.Router();
 
 userRouter.route("/").get(userController.getUsers);
 
@@ -13,3 +13,5 @@ userRouter
   .delete(authorization, admin, userController.deleteUser);
 
 userRouter.route("/:id/tasks").get(userController.getUserTasks);
+
+module.exports = userRouter;

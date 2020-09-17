@@ -1,10 +1,10 @@
-import pick from "lodash.pick";
-import bcrypt from "bcryptjs";
+const pick = require("lodash.pick");
+const bcrypt = require("bcryptjs");
 
-import { User, userModel, validateUser } from "../models/users.model";
-import { taskModel } from "../models/tasks.model";
+const { User, userModel, validateUser } = require("../models/users.model");
+const { taskModel } = require("../models/tasks.model");
 
-export const userController = {
+const userController = {
   async login(req, res) {
     const result = await userModel.login(req.body.email, req.body.password);
     if (!result.loggedIn) res.status(403).send(result.message);
@@ -79,3 +79,5 @@ export const userController = {
     }
   },
 };
+
+module.exports = userController;

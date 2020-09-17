@@ -1,7 +1,7 @@
-import { taskModel, validateTask } from "../models/tasks.model";
-import { tasksListModel } from "../models/tasksLists.model";
+const { taskModel, validateTask } = require("../models/tasks.model");
+const { tasksListModel } = require("../models/tasksLists.model");
 
-export const taskController = {
+const taskController = {
   async createTask(req, res) {
     const author = req.user._id;
     const { title, tasksList } = req.body;
@@ -63,3 +63,5 @@ export const taskController = {
     res.status(200).send(deletedTask);
   },
 };
+
+module.exports = taskController;
