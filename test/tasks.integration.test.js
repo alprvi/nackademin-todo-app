@@ -65,7 +65,6 @@ describe("TASK INTEGRATION", function () {
         .set("Content-type", "application/json")
         .send(fields)
         .end((err, res) => {
-          console.log(res.body);
           chai.expect(err).to.be.null;
           res.should.have.status(201);
           res.should.be.json;
