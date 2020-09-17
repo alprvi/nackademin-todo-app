@@ -1,9 +1,9 @@
-import express from "express";
+const express = require("express");
 
-import { tasksListController } from "../controllers/tasksLists.controller";
-import { authorization, admin } from "../middlewares";
-// import { catchErrors } from "../../middlewares"; // Remove try and catch blocks in tasks.router and use middleware instead
-export const tasksListRouter = express.Router();
+const tasksListController = require("../controllers/tasksLists.controller");
+const { authorization, admin } = require("../middlewares");
+// const { catchErrors } = require("../../middlewares"); // Remove try and catch blocks in tasks.router and use middleware instead
+const tasksListRouter = express.Router();
 
 tasksListRouter
   .route("/")
@@ -18,3 +18,5 @@ tasksListRouter
   .delete(authorization, admin, tasksListController.deleteTasksList);
 
 tasksListRouter.route("/:id/tasks").get(tasksListController.getTasksListTasks);
+
+module.exports = tasksListRouter;

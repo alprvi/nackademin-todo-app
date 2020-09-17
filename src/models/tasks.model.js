@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
-import Joi from "joi";
-import pick from "lodash.pick";
+const mongoose = require("mongoose");
+const Joi = require("joi");
+const pick = require("lodash.pick");
 
 const schema = {
   title: {
@@ -40,9 +40,9 @@ taskSchema.methods.toJSON = function () {
   ]);
 };
 
-export const Task = mongoose.model("task", taskSchema);
+const Task = mongoose.model("task", taskSchema);
 
-export function validateTask(data) {
+function validateTask(data) {
   const schema = Joi.object().keys({
     title: Joi.string().required().label("You must provide a title"),
     tasksList: Joi.string().required().label("You must provide a tasksList"),
@@ -50,7 +50,7 @@ export function validateTask(data) {
   return schema.validate(data);
 }
 
-export const taskModel = {
+const taskModel = {
   async createTask(task) {
     try {
       return await Task.create(task);
@@ -98,3 +98,5 @@ export const taskModel = {
     }
   },
 };
+
+module.exports = { Task, taskModel, validateTask };
