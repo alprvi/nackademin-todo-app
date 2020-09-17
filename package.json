@@ -8,6 +8,11 @@
     "devStart": "cross-env NODE_ENV=dev nodemon start.js",
     "test": "cross-env NODE_ENV=test mocha"
   },
+  "config": {
+    "mongodbMemoryServer": {
+      "version": "latest"
+    }
+  },
   "private": true,
   "author": "Alexandre Previ",
   "license": "ISC",
