@@ -1,10 +1,11 @@
-import mongoose from "mongoose";
-import pick from "lodash.pick";
-import bcrypt from "bcryptjs";
-import Joi from "joi";
-import jwt from "jsonwebtoken";
+require("dotenv").config();
+const mongoose = require("mongoose");
+const pick = require("lodash.pick");
+const bcrypt = require("bcryptjs");
+const Joi = require("joi");
+const jwt = require("jsonwebtoken");
 
-import config from "../config";
+const config = require("../config/database");
 
 // Create the schema
 const schema = {
@@ -57,15 +58,15 @@ userSchema.methods.generateAuthToken = function () {
       email: this.email,
       isAdmin: this.isAdmin,
     },
-    config.secrets.JWT_SECRET
+    process.env.JWT_SECRET
   );
   return token;
 };
 
 // Export the model
-export const User = mongoose.model("user", userSchema);
+const User = mongoose.model("user", userSchema);
 
-export function validateUser(data) {
+function validateUser(data) {
   const schema = Joi.object().keys({
     email: Joi.string().required().email().label("Not a valid email"),
     username: Joi.string().required().label("Username is required"),
@@ -77,7 +78,7 @@ export function validateUser(data) {
   return schema.validate(data);
 }
 
-export const userModel = {
+const userModel = {
   async login(email, password) {
     try {
       // check if user exists
@@ -158,3 +159,5 @@ export const userModel = {
     }
   },
 };
+
+module.exports = { User, userModel, validateUser };
